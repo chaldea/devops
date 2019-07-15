@@ -13,7 +13,3 @@ tee /etc/docker/daemon.json <<-'EOF'
 EOF
 systemctl daemon-reload
 systemctl restart docker
-
-
-rancehr pwd
-lsjdssN2FG

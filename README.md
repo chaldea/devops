@@ -1,2 +1,2 @@
-# linux-cli
-linux cli list
+# Development & Operations
+
