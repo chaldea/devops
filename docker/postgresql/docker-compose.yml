@@ -2,13 +2,12 @@
 version: '3.1'
 
 services:
-
   db:
     image: postgres
     ports: 
       - 5432:5432
     volumes:
-     - /opt/postgresql/data:/var/lib/postgresql/data
+     - postgresql_data:/var/lib/postgresql/data
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres
@@ -18,3 +17,7 @@ services:
     restart: always
     ports:
       - 8080:8080
+
+volumes:
+  postgresql_data:
+    driver: local
