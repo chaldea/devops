@@ -2,6 +2,7 @@ version: "3"
 services: 
  rabbit1:
   image: "rabbitmq:3-management"
+  restart: always
   hostname: "rabbit1"
   environment:
     RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
@@ -14,6 +15,7 @@ services:
   labels:
     NAME: "rabbitmq1"
   volumes:
-    - "./enabled_plugins:/etc/rabbitmq/enabled_plugins"
-    # - "./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf"
-    #- "./autocluster-0.4.1.ez:/usr/lib/rabbitmq/lib/rabbitmq_server-3.5.5/plugins/autocluster-0.4.1.ez"
+    - rabbitmq_data:/etc/rabbitmq
+
+volumes: 
+  rabbitmq_data:
