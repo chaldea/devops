@@ -1,10 +1,13 @@
-docker安装
+### Docker Register Service
+```
 systemctl enable docker.service
 systemctl start docker.service
 # add promission (need relogin)
 sudo usermod -a -G docker $USER
+```
 
-阿里云镜像加速
+### Use Aliyun Docker Mirror
+```
 mkdir -p /etc/docker
 tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -13,7 +16,4 @@ tee /etc/docker/daemon.json <<-'EOF'
 EOF
 systemctl daemon-reload
 systemctl restart docker
-
-
-rancehr pwd
-lsjdssN2FG
+```

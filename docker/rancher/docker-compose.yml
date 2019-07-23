@@ -2,8 +2,12 @@ version: '3'
 services:
   rancher:
     image: rancher/rancher:latest
+    restart: always
     volumes:
-     - /opt/rancher:/var/lib/rancher
+     - rancher_data:/var/lib/rancher
     ports:
      - "80:80"
      - "443:443"
+
+volumes:
+  rancher_data:
