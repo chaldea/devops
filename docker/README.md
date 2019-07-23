@@ -1,4 +1,4 @@
-### Docker注册服务
+### Docker Register Service
 ```
 systemctl enable docker.service
 systemctl start docker.service
@@ -6,7 +6,7 @@ systemctl start docker.service
 sudo usermod -a -G docker $USER
 ```
 
-### 阿里云镜像加速
+### Use Aliyun Docker Mirror
 ```
 mkdir -p /etc/docker
 tee /etc/docker/daemon.json <<-'EOF'

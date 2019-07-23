@@ -1,2 +1,8 @@
 # Development & Operations
-该仓库用来存放开发和运维的指导手册，同时收集整理一些开发和运维过程中遇到的问题和对应的解决方案。
+> The repo is used to store development and operation instruction manuals, and collects some problems and corresponding solutions encountered during development and operation.
+
+# Knowledge
+1. [Docker](docker/README.md)
+2. [Helm](helm/README.md)
+3. [Kubernetes](k8s/README.md)
+4. [Linux Cli](linux/README.md)
