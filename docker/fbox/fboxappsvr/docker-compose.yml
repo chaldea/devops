@@ -1,0 +1,28 @@
+version: '3'
+services:
+  appsvr:
+    image: docker.flexem.com/flexem-fbox/fbox.appsvr:1.60.5.4425-c5b70e
+    restart: always
+    volumes:
+     - devices_data:/app/devices
+     - firmware_data:/app/firmware
+     - log_data:/app/log
+    ports:
+     - "39901:39901"
+    extra_hosts: 
+      - "localhost:192.168.100.151"
+    environment:
+      AppSettings__IdServerUrl: "http://localhost:58491/core/"
+      AppSettings__IdServerApiBaseUrl: "http://localhost:58491/api/"
+      AppSettings__IdServerPushUrl: "http://localhost:58491/push/"
+      ConnectionStrings__Provider: PgSql
+      ConnectionStrings__MsSql: "Server=localhost;Database=fbas;Trusted_Connection=True;"
+      ConnectionStrings__PgSql: "server=localhost;database=fbas;port=5432;user id=postgres;password=postgres;"
+      Cassandra__ConnectionString: "Contact Points=192.168.50.77"
+      Cassandra__Port: "34622"
+      Kafka__BootstrapServers: "localhost:9092"
+      Kafka__TopicPrefix: "fboxlocal."
+volumes: 
+  devices_data:
+  firmware_data:
+  log_data:

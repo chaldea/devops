@@ -1,0 +1,46 @@
+version: '3.5'
+
+services:
+  flexem.box.outputpipeline:
+    image: docker.flexem.com/flexem-fbox/fbox.outputpipeline:latest
+    restart: always
+    ports:
+     - "9501:80"
+    extra_hosts: 
+      - "localhost:192.168.100.151"
+    environment:
+      SubscriptionManager__RocksDb__NoBlockCache: "false"
+      SubscriptionManager__RocksDb__DefaultColumnFamilySettings__BlockCacheSize: 16777216
+      SubscriptionManager__RocksDb__DefaultColumnFamilySettings__CacheIndexAndFilterBlocks: "true"
+      SubscriptionManager__FBoxKafka__BootstrapServers: "localhost:9092"
+      SubscriptionManager__FBoxKafka__TopicPrefix: fboxlocal.
+      SubscriptionManager__FBoxKafka__GroupId: fbox-ops
+      SubscriptionManager__FBoxKafka__MaxPollIntervalMs: 600000
+      SubscriptionManager__DmonDataOutputHubPrefix: fbox.dmon.data.
+      SubscriptionManager__AlarmDataOutputHubPrefix: fbox.alarm.data.
+      SubscriptionManager__HdataDataOutputHubPrefix: fbox.hdata.data.
+      SubscriptionManager__ConsumeDefsFromBeginning: "true"
+      SubscriptionManager__ConsumeSubscriptionsFromBeginning: "true"
+      SubscriptionManager__ConsumeDataSourcesFromBeginning: null
+      SubscriptionManager__MaxDefTopicBufferQueueSize: 5000
+      SubscriptionManager__Roles: "PublishDmonOnOffs,DistributeDmonData,DistributeAlarmData,DistributeHdataData,DistributeDeviceStateLegacy"
+      SubscriptionManager__OutputTopics__0__Regex: ^fbox\\.dmon\\.data\\..+
+      SubscriptionManager__OutputTopics__0__Topic: $$0
+      SubscriptionManager__OutputTopics__0__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__0__ProducerSettings__TopicPrefix: fboxlocal.
+      SubscriptionManager__OutputTopics__0__ProducerSettings__EnableAsyncFlush: "true"
+      SubscriptionManager__OutputTopics__1__Regex: ^fbox\\.alarm\\.data\\..+
+      SubscriptionManager__OutputTopics__1__Topic: $$0
+      SubscriptionManager__OutputTopics__1__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__1__ProducerSettings__TopicPrefix: fboxlocal.
+      SubscriptionManager__OutputTopics__1__ProducerSettings__EnableAsyncFlush: "true"
+      SubscriptionManager__OutputTopics__2__Regex: ^fbox\\.hdata\\.data\\..+
+      SubscriptionManager__OutputTopics__2__Topic: $$0
+      SubscriptionManager__OutputTopics__2__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__2__ProducerSettings__TopicPrefix: fboxlocal.
+      SubscriptionManager__OutputTopics__2__ProducerSettings__EnableAsyncFlush: "true"
+      SubscriptionManager__OutputTopics__3__Regex: ^fbox\\.device\\.state\\.legacy\\..+
+      SubscriptionManager__OutputTopics__3__Topic: $$0
+      SubscriptionManager__OutputTopics__3__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__3__ProducerSettings__TopicPrefix: fboxlocal.
+      SubscriptionManager__OutputTopics__3__ProducerSettings__EnableAsyncFlush: "true"

@@ -1,0 +1,30 @@
+version: '3.6'
+
+services:
+  Flexem.IdentityServer4.Server:
+    image: docker.flexem.com/flexem/flexem.idsrv:latest
+    restart: always
+    ports: 
+     - "58491:80"
+     - "58492:443"
+    extra_hosts: 
+      - "localhost:192.168.100.151"
+    environment:
+      UseDB: postgre
+      ConnectionStrings__AdminConnection: "User ID=postgres;Password=postgres;Host=localhost;Port=5432;Database=fxid;Pooling=true;"
+      IdentityServer__Authority: "http://192.168.100.151:58491"
+  
+  Flexem.IdentityServer4.Admin:
+    image: docker.flexem.com/flexem/flexem.idsrv.admin:latest
+    restart: always
+    ports: 
+     - "9000:80"
+     - "9001:443"
+    extra_hosts: 
+      - "localhost:192.168.100.151"
+    environment:
+      UseDB: postgre
+      ConnectionStrings__AdminConnection: "User ID=postgres;Password=postgres;Host=localhost;Port=5432;Database=fxid;Pooling=true;"
+      AdminConfiguration__IdentityAdminBaseUrl: "http://localhost:9000"
+      AdminConfiguration__IdentityAdminRedirectUri: "http://localhost:9000/signin-oidc"
+      AdminConfiguration__IdentityServerBaseUrl: "http://localhost:58491/core"
