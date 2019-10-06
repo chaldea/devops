@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   flexem.box.outputpipeline:
-    image: docker.flexem.com/flexem-fbox/fbox.outputpipeline:latest
+    image: docker.flexem.com/flexem-fbox/fbox.outputpipeline:test1567094766
     restart: always
     ports:
      - "9501:80"
@@ -23,7 +23,7 @@ services:
       SubscriptionManager__ConsumeSubscriptionsFromBeginning: "true"
       SubscriptionManager__ConsumeDataSourcesFromBeginning: null
       SubscriptionManager__MaxDefTopicBufferQueueSize: 5000
-      SubscriptionManager__Roles: "PublishDmonOnOffs,DistributeDmonData,DistributeAlarmData,DistributeHdataData,DistributeDeviceStateLegacy"
+      SubscriptionManager__Roles: "ProcessSubscriptions,ProcessTerminalInput,PublishDmonOnOffs,DistributeDmonData,DistributeAlarmData,DistributeHdataData,DistributeDeviceStateLegacy"
       SubscriptionManager__OutputTopics__0__Regex: ^fbox\\.dmon\\.data\\..+
       SubscriptionManager__OutputTopics__0__Topic: $$0
       SubscriptionManager__OutputTopics__0__ProducerSettings__BootstrapServers: localhost:9092
@@ -44,3 +44,9 @@ services:
       SubscriptionManager__OutputTopics__3__ProducerSettings__BootstrapServers: localhost:9092
       SubscriptionManager__OutputTopics__3__ProducerSettings__TopicPrefix: fboxlocal.
       SubscriptionManager__OutputTopics__3__ProducerSettings__EnableAsyncFlush: "true"
+      SubscriptionManager__OutputTopics__4__Regex: ^fbox\\.dmon\\.onoff\\..+
+      SubscriptionManager__OutputTopics__4__Topic: $$0
+      SubscriptionManager__OutputTopics__4__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__4__ProducerSettings__TopicPrefix: fboxlocal.
+      SubscriptionManager__OutputTopics__4__ProducerSettings__EnableAsyncFlush: "true"
+      SubscriptionManager__OutputTopics__4__ProducerSettings__DefaultPartition: "0"

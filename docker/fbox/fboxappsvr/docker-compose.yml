@@ -1,7 +1,7 @@
 version: '3'
 services:
   appsvr:
-    image: docker.flexem.com/flexem-fbox/fbox.appsvr:1.60.5.4425-c5b70e
+    image: docker.flexem.com/flexem-fbox/fbox.appsvr:1.60.5.4498-e7a266
     restart: always
     volumes:
      - devices_data:/app/devices
