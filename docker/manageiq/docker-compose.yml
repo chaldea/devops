@@ -1,0 +1,12 @@
+version: "3"
+services: 
+ manageiq:
+  image: manageiq/manageiq:hammer-11
+  restart: always
+  ports:
+    - "8443:443"
+  volumes:
+    - manageiq_data:/var/lib/pgsql/data
+
+volumes: 
+  manageiq_data:

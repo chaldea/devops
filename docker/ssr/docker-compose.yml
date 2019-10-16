@@ -1,0 +1,12 @@
+version: '3'
+services:
+  ssr:
+    image: chaldea/ssr
+    restart: always
+    volumes:
+     - config:/etc/shadowsocks
+    ports:
+     - "38388:8388"
+
+volumes:
+  config:

@@ -1,0 +1,13 @@
+version: '3.5'
+ 
+services:
+  syncsvr:
+    image: docker.flexem.com/flexem-fbox/fbox.syncsvr:1.0.0.4812-7df2a8
+    ports:
+     - "20021:20021"
+    restart: always
+    environment:
+      Kafka__BootstrapServers: 192.168.100.151:9092
+      Kafka__TopicPrefix: fboxlocal.
+      Redis__EndPoints: 192.168.100.151:6379
+      Redis__Database: 1

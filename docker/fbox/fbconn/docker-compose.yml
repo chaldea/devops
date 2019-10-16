@@ -1,0 +1,20 @@
+version: '3'
+services:
+  fbconn:
+    image: docker.flexem.com/flexem-fbox/fbox.connector:1.0.0.4162-a7542e
+    restart: always
+    volumes:
+     - log_data:/app/log
+    extra_hosts: 
+      - "localhost:192.168.100.151"
+    ports:
+     - "7157:7157"
+     - "7257:7257"
+     - "8063:8063"
+    environment:
+      Kafka__GroupId: "fbox-conn.server"
+      Kafka__BootstrapServers: "localhost:9092"
+      Kafka__BoxMessageConsumerCount: "4"
+      Kafka__TopicPrefix: "fboxlocal."
+volumes: 
+  log_data:

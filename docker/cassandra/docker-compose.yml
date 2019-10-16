@@ -1,0 +1,33 @@
+version: '3.5'
+
+services:
+  cassandra:
+    image: docker.flexem.com/library/cassandra:3
+    ports:
+      - 7199:7199
+      - 9042:9042
+    restart: always
+    environment:
+      SERVICE_REGION: hg
+      SERVICE_7199_NAME: cassandra-jmx
+      SERVICE_9042_NAME: cassandra-cql
+      CASSANDRA_CLUSTER_NAME: hg
+      CASSANDRA_DC: dc1
+      CASSANDRA_RACK: 1
+      CASSANDRA_BROADCAST_ADDRESS: cassandra
+      CASSANDRA_LISTEN_ON_BROADCAST_ADDRESS: "true"
+      CASSANDRA_BATCH_SIZE_WARN_THRESHOLD_IN_KB: 40
+      CASSANDRA_BATCH_SIZE_FAIL_THRESHOLD_IN_KB: 200
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      CASSANDRA_KEY_CACHE_SIZE_IN_MB: 128
+      CASSANDRA_TOMBSTONE_FAILURE_THRESHOLD: 20000
+      MAX_HEAP_SIZE: 2048M
+      HEAP_NEWSIZE: 128M
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+      - cassandra_commitlog:/var/lib/cassandra/commitlog
+
+networks:
+  default:
+    external: true
+    name: localnet

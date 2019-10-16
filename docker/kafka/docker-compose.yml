@@ -16,6 +16,7 @@ services:
     restart: always
     volumes: 
       - kafka_data:/var/lib/kafka/data
+      - kafka_config:/etc/kafka
     depends_on:
       - zookeeper
     ports:
@@ -31,3 +32,4 @@ services:
 volumes: 
   zookeeper_data:
   kafka_data:
+  kafka_config:

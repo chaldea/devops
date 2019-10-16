@@ -1,0 +1,17 @@
+version: "3.7"
+services: 
+ nginx:
+  image: nginx
+  restart: always
+  ports:
+    - "433:433"
+    - "80:80"
+  volumes:
+    - nginx_log:/var/log/nginx
+    - nginx_html:/usr/share/nginx/html
+    - nginx_conf:/etc/nginx/nginx.conf
+
+volumes: 
+  nginx_log:
+  nginx_html:
+  nginx_conf:
