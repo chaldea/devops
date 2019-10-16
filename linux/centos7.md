@@ -27,6 +27,7 @@ tar -cvzf xxx.tar.gz /opt/xxx
 
 文件传输
 scp -P 1234 root@192.168.50.51:/home
+scp -r dir root@192.168.1.101:/data/storage/anime
 
 修改yum源
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
