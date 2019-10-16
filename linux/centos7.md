@@ -17,7 +17,7 @@ systemctl status firewalld
 systemctl stop firewalld
 firewall-cmd --zone=public --list-ports
 firewall-cmd --zone=public --add-port=28721/tcp --permanent
-firewall-cmd --zone= public --remove-port=80/tcp --permanent
+firewall-cmd --zone=public --remove-port=80/tcp --permanent
 firewall-cmd --reload
 
 tar.gz

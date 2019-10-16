@@ -1,0 +1,8 @@
+version: "3"
+services: 
+ nps:
+  image: chaldea/nps
+  restart: always
+  network_mode: "host"
+  volumes:
+    - /opt/nps/conf:/nps/conf
