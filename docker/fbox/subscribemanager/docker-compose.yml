@@ -2,12 +2,13 @@ version: '3.5'
 
 services:
   fboxsubscribemanagerapi:
-    image: docker.flexem.com/flexem-fbox/fbox.subscribeapi:1.0.0.4420-926842
+    image: docker.flexem.com/flexem-fbox/fbox.subscribeapi:1.0.0.5314-ca55ba
     ports: 
      - "50001:80"
     restart: always
+    network_mode: bridge
     extra_hosts: 
-      - "localhost:192.168.100.151"
+      - "localhost:192.168.50.151"
     environment:
       ConnectionStrings__Connection: "server=localhost;port=5432;user id=postgres;password=postgres;database=subpushdev"
       AppSettings__AppCode: api1

@@ -1,0 +1,12 @@
+version: "3"
+services: 
+ mqtt:
+  image: eclipse-mosquitto:1.6.8
+  network_mode: bridge
+  restart: always
+  ports:
+    - "1883:1883"
+    - "9001:9001"
+  volumes:
+    - /opt/mosquitto/data:/mosquitto/data
+    - /opt/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf

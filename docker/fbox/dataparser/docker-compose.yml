@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  dataparser:
+    container_name: dataparser
+    image: docker.flexem.com/flexem-fbox/fbox.dataparser:1.0.0.5547-86f7ee
+    restart: always
+    environment:
+      AppSettings__Redis__EndPoints: redis:6379
+      AppSettings__Redis__Database: 1
+      AppSettings__Kafka__TopicPrefix: fboxlocal.
+      AppSettings__Kafka__Brokers: kafka:9092
+
+networks:
+  default:
+    external: true
+    name: cluster

@@ -1,11 +1,18 @@
-version: '2'
+version: '3.5'
 services:
   etcd:
+    container_name: etcd
     image: bitnami/etcd:3
+    restart: always
+    ports:
+      - 2379:2379
+      - 2380:2380
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
     volumes:
-      - etcd_data:/bitnami
+      - /opt/etcd:/bitnami
 
-volumes:
-  etcd_data:
+networks:
+  default:
+    external: true
+    name: cluster

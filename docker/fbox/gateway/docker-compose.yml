@@ -1,0 +1,15 @@
+version: "3.5"
+
+services:
+  gateway:
+    container_name: gateway
+    image: docker.flexem.com/flexem/gateway
+    ports:
+      - "30000:30000"
+    volumes:
+     - /opt/gateway/Ocelot.json:/app/Ocelot.json
+
+networks:
+  default:
+    external: true
+    name: cluster

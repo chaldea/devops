@@ -1,0 +1,9 @@
+version: "3"
+services: 
+ npc:
+  image: chaldea/npc:0.25.1
+  restart: always
+  environment:
+    NPC_SERVER: 127.0.0.1:8024
+    NPC_VKEY: 1234
+    NPC_TYPE: tcp

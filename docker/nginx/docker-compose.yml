@@ -3,15 +3,16 @@ services:
  nginx:
   image: nginx
   restart: always
+  network_mode: bridge
   ports:
     - "433:433"
     - "80:80"
   volumes:
-    - nginx_log:/var/log/nginx
-    - nginx_html:/usr/share/nginx/html
-    - nginx_conf:/etc/nginx/nginx.conf
+    - /opt/nginx/log:/var/log/nginx
+    - /opt/nginx/html:/usr/share/nginx/html
+    - /opt/nginx/conf:/etc/nginx/conf.d
 
-volumes: 
-  nginx_log:
-  nginx_html:
-  nginx_conf:
+# volumes: 
+#   nginx_log:
+#   nginx_html:
+#   nginx_conf:

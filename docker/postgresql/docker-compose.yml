@@ -1,20 +1,30 @@
-version: '3.1'
+version: '3.5'
 services:
-  db:
+  postgres:
+    container_name: postgres
     image: postgres
     restart: always
     ports: 
       - 5432:5432
     volumes:
-     - postgresql_data:/var/lib/postgresql/data
+     - /opt/postgresql/data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres
 
-  adminer:
-    image: adminer
+  pgadmin4:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
     restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@root.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+    volumes:
+      - /opt/postgresql/admin/conf:/root/.pgadmin
+      - /opt/postgresql/admin/data:/var/lib/pgadmin/storage
     ports:
-      - 8088:8080
+      - 8081:80
 
-volumes:
-  postgresql_data:
+networks:
+  default:
+    external: true
+    name: cluster

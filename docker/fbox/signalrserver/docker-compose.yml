@@ -2,10 +2,11 @@ version: '3.5'
 
 services:
   fboxoldsignalrserver:
-    image: docker.flexem.com/flexem-fbox/fbox.oldsignalrserver:latest
+    image: docker.flexem.com/flexem-fbox/fbox.oldsignalrserver:1.0.0.5302-a842c7
     restart: always
+    network_mode: bridge
     extra_hosts: 
-      - "localhost:192.168.100.151"
+      - "localhost:192.168.50.151"
     ports:
      - "5001:80"
     environment:

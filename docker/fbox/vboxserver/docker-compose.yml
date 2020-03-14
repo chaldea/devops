@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  fboxsubscribemanagerapi:
+    image: docker.flexem.com/flexem-fbox/vboxserver:1.0.0
+    ports: 
+     - "63514:63514"
+    restart: always
+    network_mode: bridge
+    environment:
+      ConnectionStrings__SqlServer: Server=192.168.50.91;Database=virtualbox;Uid=flexemci;Pwd=123qwe!@#;

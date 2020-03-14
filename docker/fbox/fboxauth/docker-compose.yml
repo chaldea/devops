@@ -1,0 +1,20 @@
+version: '3.5'
+ 
+services:
+  fboxauth:
+    image: docker.flexem.com/flexem-fbox/fbox.deviceauth:1.0.0.5269-2a4587
+    network_mode: bridge
+    ports: 
+     - "30005:80"
+    restart: always 
+    container_name: fboxauth
+    environment:
+      AppSettings__SessionExpiryHours: 24
+      AppSettings__Kafka__Brokers: 192.168.50.151:9092
+      AppSettings__Kafka__TopicPrefix: fboxlocal.
+      AppSettings__Redis__EndPoints: 192.168.50.151:6379
+      AppSettings__Redis__Database: 0
+      AppSettings__Discover: etcd
+      AppSettings__Etcd__Prefix: fboxlocal
+      AppSettings__Etcd__Connection: http://192.168.50.151
+      AppSettings__Etcd__Port: 2379

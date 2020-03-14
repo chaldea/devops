@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  hdata:
+    image: docker.flexem.com/flexem-fbox/fbox.hdataserver:1.0.0.5405-ae22f2
+    ports: 
+     - "26696:80"
+    restart: always
+    environment:
+      Cassandra__ConnectionString: Contact Points=192.168.50.77
+      Cassandra__Port: 34622
+      AppSettings__IdServerUrl: http://192.168.50.151:58491/core
+      Mining__Disabled: "true"  # false:开启挖矿
+      Mining__WorkerCount: 1

@@ -1,0 +1,19 @@
+version: '3.5'
+ 
+services:
+  datapersist:
+    container_name: datapersist
+    image: docker.flexem.com/flexem-fbox/fbox.persistsvr:1.0.1.5478-10b5db
+    ports: 
+     - 3795
+    restart: always 
+    environment:
+      Kafka__BootstrapServers: kafka:9092
+      Kafka__TopicPrefix: fboxlocal.
+      Cassandra__ConnectionString: Contact Points=192.168.50.77
+      Cassandra__Port: 34622
+
+networks:
+  default:
+    external: true
+    name: cluster
