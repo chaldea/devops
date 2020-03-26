@@ -3,6 +3,7 @@ version: "3.5"
 services:
   gateway:
     container_name: gateway
+    restart: always
     image: docker.flexem.com/flexem/gateway
     ports:
       - "30000:30000"

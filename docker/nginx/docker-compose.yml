@@ -1,9 +1,9 @@
-version: "3.7"
+version: "3.5"
 services: 
  nginx:
+  container_name: nginx
   image: nginx
   restart: always
-  network_mode: bridge
   ports:
     - "433:433"
     - "80:80"
@@ -12,7 +12,7 @@ services:
     - /opt/nginx/html:/usr/share/nginx/html
     - /opt/nginx/conf:/etc/nginx/conf.d
 
-# volumes: 
-#   nginx_log:
-#   nginx_html:
-#   nginx_conf:
+networks:
+  default:
+    external: true
+    name: cluster

@@ -1,0 +1,11 @@
+version: '3.5'
+services:
+  chartmuseum:
+    container_name: chartmuseum
+    image: chartmuseum/chartmuseum:v0.11.0
+    restart: always
+
+networks:
+  default:
+    external: true
+    name: cluster

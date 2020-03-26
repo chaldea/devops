@@ -1,0 +1,21 @@
+---
+    accessKey: TAXPJBSSZR
+    secretKey: JmA6v3CKqhxbKb31SpcMBQq7ZnRJrc
+    mountPath: /data
+    nodeSelector:
+      storage: nas
+    ingress: 
+      enabled: "true"
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        kubernetes.io/ingress.class: traefik
+      path: /
+      hosts:
+        - oss.chaldea.cn
+      tls:
+        - hosts:
+            - '*.chaldea.cn'
+            secretName: wildcard-chaldea-cn-tls
+    persistence: 
+      storageClass: "local-path"
+      size: "1024Gi"
