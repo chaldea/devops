@@ -1,25 +1,28 @@
 version: '3.5'
 
 services:
-  fboxsubscribemanagerapi:
+  subscribeapi:
+    container_name: subscribeapi
     image: docker.flexem.com/flexem-fbox/fbox.subscribeapi:1.0.0.5314-ca55ba
     ports: 
      - "50001:80"
     restart: always
-    network_mode: bridge
-    extra_hosts: 
-      - "localhost:192.168.50.151"
     environment:
-      ConnectionStrings__Connection: "server=localhost;port=5432;user id=postgres;password=postgres;database=subpushdev"
+      ConnectionStrings__Connection: "server=postgres;port=5432;user id=postgres;password=postgres;database=subpushdev"
       AppSettings__AppCode: api1
-      AppSettings__IdSvrAuthority: http://localhost:58491/core/
+      AppSettings__IdSvrAuthority: http://192.168.50.151:58491/core/
       AppSettings__IdSvrSecret: secret
-      AppSettings__SubscribeKafka__Brokers: localhost:9092
+      AppSettings__SubscribeKafka__Brokers: kafka:9092
       AppSettings__SubscribeKafka__Topic: fboxlocal.fbox.data.sub
-      AppSettings__ConfigKafka__Brokers: localhost:9092
+      AppSettings__ConfigKafka__Brokers: kafka:9092
       AppSettings__ConfigKafka__Topic: fboxlocal.fbox.subscribe.config
-      AppSettings__Redis__EndPoints: localhost:6379
+      AppSettings__Redis__EndPoints: redis:6379
       AppSettings__Redis__Database: 0
       AppSettings__StatisticsKeys__DmonDataKey: fboxlocal.fbox.dmon.data
       AppSettings__StatisticsKeys__AlarmDataKey: fboxlocal.fbox.alarm.data
       AppSettings__StatisticsKeys__HdataDataKey: fboxlocal.fbox.hdata.data
+
+networks:
+  default:
+    external: true
+    name: cluster
