@@ -22,7 +22,7 @@ services:
       - /opt/postgresql/admin/conf:/root/.pgadmin
       - /opt/postgresql/admin/data:/var/lib/pgadmin/storage
     ports:
-      - 8081:80
+      - 8082:80
 
 networks:
   default:

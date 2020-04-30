@@ -1,0 +1,14 @@
+version: '3.5'
+ 
+services:
+  pms:
+    container_name: pms
+    image: pms:1.0
+    ports:
+     - "42742:42742"
+    restart: always
+
+networks:
+  default:
+    external: true
+    name: cluster

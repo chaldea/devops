@@ -3,7 +3,7 @@ version: '3.5'
 services:
   deviceauth:
     container_name: deviceauth
-    image: docker.flexem.com/flexem-fbox/fbox.deviceauth:firmware-test
+    image: docker.flexem.com/flexem-fbox/fbox.deviceauth:firmware-test1
     ports: 
      - "30005:80"
     restart: always

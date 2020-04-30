@@ -1,12 +1,15 @@
 version: '3'
 services:
   ssr:
+    container_name: ssr
     image: chaldea/ssr
     restart: always
     volumes:
-     - config:/etc/shadowsocks
+     - /opt/ssr/config.json:/etc/shadowsocks/config.json
     ports:
      - "38388:8388"
 
-volumes:
-  config:
+networks:
+  default:
+    external: true
+    name: cluster

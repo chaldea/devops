@@ -3,7 +3,7 @@ version: '3.5'
 services:
   commsvr:
     container_name: commsvr
-    image: docker.flexem.com/flexem-fbox/fbox.commsvr:1.74.0.6198-214a22
+    image: docker.flexem.com/flexem-fbox/fbox.commsvr:1.75.0-dev.40-22da83
     ports: 
      - "39902:39902"
     restart: always
@@ -58,6 +58,7 @@ services:
       Kafka__TopicPrefix: fboxlocal.
       RocksDb__DataDir: LocalDb
       RocksDb__DefaultWriteOptions__Sync: "true"
+      FileService__FileManagerServiceUrl: http://192.168.50.151:30007
 
 networks:
   default:
