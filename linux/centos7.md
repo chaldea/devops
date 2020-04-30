@@ -79,3 +79,4 @@ ACL权限控制
 查看是否开启ACL控制
 dumpe2fs -h /dev/sdb1 | grep options
 
+ls -l --block-size=M
