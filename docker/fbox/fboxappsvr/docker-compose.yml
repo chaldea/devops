@@ -2,7 +2,7 @@ version: '3.5'
 services:
   appsvr:
     container_name: appsvr
-    image: docker.flexem.com/flexem-fbox/fbox.appsvr:1.75.0-dev.23-633baf
+    image: docker.flexem.com/flexem-fbox/fbox.appsvr:test
     restart: always
     ports:
      - "39901:39901"

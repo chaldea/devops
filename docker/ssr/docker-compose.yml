@@ -1,15 +1,14 @@
-version: '3'
+version: '3.5'
 services:
   ssr:
     container_name: ssr
     image: chaldea/ssr
     restart: always
-    volumes:
-     - /opt/ssr/config.json:/etc/shadowsocks/config.json
-    ports:
-     - "38388:8388"
-
-networks:
-  default:
-    external: true
-    name: cluster
+    network_mode: host
+    environment:
+      SSR_SERVER_PORT: 8388
+      SSR_PASSWORD: bBrJHLGZJLXZTCpTTfdM5qkrFRWr9ZJCMz91B1MVusv5jFxyu1
+      SSR_METHOD: none
+      SSR_PROTOCOL: auth_chain_d
+      SSR_OBFS: tls1.2_ticket_auth
+      SSR_OBFS_PARAM: baidu.com

@@ -80,3 +80,5 @@ ACL权限控制
 dumpe2fs -h /dev/sdb1 | grep options
 
 ls -l --block-size=M
+
+netstat -anop | grep 37964
