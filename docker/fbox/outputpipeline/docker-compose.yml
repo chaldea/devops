@@ -3,13 +3,13 @@ version: '3.5'
 services:
   outputpipeline:
     container_name: outputpipeline
-    image: docker.flexem.com/flexem-fbox/fbox.outputpipeline:1.0.0.5506-c0c300
+    image: docker.flexem.com/flexem-fbox/fbox.outputpipeline:1.0.0.63-5bf745
     restart: always
     ports:
-     - "9501:80"
+     - "30181:30181"
+     - "37921:37921"
     volumes:
       - /opt/fbox/fboxoutpipe/data/db:/db/
-      - /opt/fbox/fboxoutpipe/data/log:/log/
     environment:
       SubscriptionManager__MaxDataSourceTopicBufferQueueSize: "10000"
       RocksDb__DataDir: /db/default

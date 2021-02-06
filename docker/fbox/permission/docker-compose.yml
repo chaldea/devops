@@ -3,7 +3,7 @@ version: "3.5"
 services:
   permission:
     container_name: permission
-    image: docker.flexem.com/flexem/permission:1.0.0.3-b81ef8
+    image: docker.flexem.com/flexem/permission:1.0.0.27-d802f8
     restart: always
     ports:
       - "9001:9001"

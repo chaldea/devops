@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: recharge
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: app.fbox360.cn
+    http:
+      paths:
+      - path: /api/recharge
+        backend:
+          serviceName: fboxrecharge
+          servicePort: 9003

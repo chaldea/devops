@@ -3,7 +3,7 @@ version: '3.5'
 services:
   oldsignalrserver:
     container_name: oldsignalrserver
-    image: docker.flexem.com/flexem-fbox/fbox.oldsignalrserver:1.0.0.5302-a842c7
+    image: docker.flexem.com/flexem-fbox/fbox.oldsignalr:1.0.0.12-e0cb02
     restart: always
     ports:
      - "5001:80"

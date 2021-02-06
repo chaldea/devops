@@ -3,6 +3,7 @@ services:
   postgres:
     container_name: postgres
     image: postgres
+    user: postgres
     restart: always
     ports: 
       - 5432:5432

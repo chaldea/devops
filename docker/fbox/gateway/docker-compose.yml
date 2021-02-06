@@ -4,11 +4,11 @@ services:
   gateway:
     container_name: gateway
     restart: always
-    image: docker.flexem.com/flexem/gateway
+    image: docker.flexem.com/flexem-fbox/fbox.gateway:1.0.0.1
     ports:
       - "30000:30000"
     volumes:
-     - /opt/gateway/Ocelot.json:/app/Ocelot.json
+     - /opt/gateway/ocelot.json:/app/ocelot.json
 
 networks:
   default:

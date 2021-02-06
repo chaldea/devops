@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  centos7:
+    container_name: centos7
+    image: centos:7
+    ports: 
+      - 5122:80
+    volumes:
+     - /opt/centos7:/opt/
+    entrypoint: tail -f /dev/null
+
+
+networks:
+  default:
+    external: true
+    name: cluster

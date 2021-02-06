@@ -2,6 +2,7 @@ version: '3.5'
 
 services:
   cassandra:
+    container_name: cassandra
     image: docker.flexem.com/library/cassandra:3
     ports:
       - 7199:7199
@@ -24,10 +25,10 @@ services:
       MAX_HEAP_SIZE: 2048M
       HEAP_NEWSIZE: 128M
     volumes:
-      - cassandra_data:/var/lib/cassandra
-      - cassandra_commitlog:/var/lib/cassandra/commitlog
+      - /opt/cassandra/data:/var/lib/cassandra
+      - /opt/cassandra/commitlog:/var/lib/cassandra/commitlog
 
 networks:
   default:
     external: true
-    name: localnet
+    name: cluster

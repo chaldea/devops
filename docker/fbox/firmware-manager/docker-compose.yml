@@ -3,7 +3,7 @@ version: "3.5"
 services:
   firmware-manager:
     container_name: firmware-manager
-    image: docker.flexem.com/flexem/firmware-manager:1.0.0.12-defbd0
+    image: docker.flexem.com/flexem/firmware-manager:1.0.0.49-dea9d7
     restart: always
     ports:
       - "9002:9002"

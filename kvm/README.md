@@ -1,5 +1,5 @@
 Install
-yum install qemu-kvm libvirt libvirt-python libguestfs-tools virt-install
+yum install qemu-kvm qemu-img libvirt libvirt-python libguestfs-tools virt-install
 
 创建virsh用户
 saslpasswd2 -a libvirt {用户名}

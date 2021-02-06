@@ -15,6 +15,10 @@ services:
       Rdms__ProductionServiceAddress: "https://mfgtest.fbox360.net"
       Rdms__FBoxLoginServiceAddress: "http://dev.fbox.flexem.net"
       Rdms__FBoxServerMinVersion: "1.9.1"
+      MinioSetting__EndPoint: "192.168.50.151:9000"
+      MinioSetting__AccessKey: "admin"
+      MinioSetting__SecretKey: "426gcHKN1B"
+      MinioSetting__Secure: "false"
   pms-app:
     container_name: pms-app
     image: pms-app:test
