@@ -1,0 +1,13 @@
+---
+    service:
+      type: NodePort
+    persistence:
+      enabled: true
+      storageClass: local-path
+      size: 10Gi
+    master:
+      nodeSelector:
+        storage: database 
+    slave:
+      nodeSelector:
+        storage: repository

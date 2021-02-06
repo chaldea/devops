@@ -47,6 +47,10 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: 8083
+      targetPort: docker
+      protocol: TCP
+      name: docker
   selector:
     app.kubernetes.io/name: nexus
     app.kubernetes.io/instance: nexus
@@ -87,6 +91,9 @@ spec:
             - name: http
               containerPort: 8081
               protocol: TCP
+            - name: docker
+              containerPort: 8083
+              protocol: TCP
           resources:
             {}
           volumeMounts:
@@ -97,7 +104,7 @@ spec:
           persistentVolumeClaim: 
             claimName: nexus
       nodeSelector:
-        storage: data1
+        storage: repository
 ---
 # Source: nexus/templates/ingress.yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -126,3 +133,10 @@ spec:
             backend:
               serviceName: nexus
               servicePort: 8081
+    - host: "docker.chaldea.cn"
+      http:
+        paths:
+          - path: 
+            backend:
+              serviceName: nexus
+              servicePort: 8083
