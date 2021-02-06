@@ -2,21 +2,20 @@ version: '3.5'
 
 services:
   webapp:
-    image: docker.flexem.com/flexem-fbox/fbox.webapp:1.0.0.5401-407a85
+    container_name: webapp
+    #image: docker.flexem.com/flexem-fbox/fbox.webapp:1.76.6-genyun
+    image: docker.flexem.com/flexem-fbox/fbox.webapp:1.0.1.301-d6aaa2
     ports:
      - "39801:80"
-    volumes:
-     - /opt/fbox/webapp/config.js:/usr/share/nginx/html/app/config.js
     restart: always
-    network_mode: bridge
-    container_name: webapp
-    extra_hosts: 
-      - "localhost:192.168.50.151"
     environment:
-      asApiUrl: http://192.168.100.221:39901/
-      asPushUrl: http://192.168.100.221:5001/push/client
-      idSvrUrl: http://localhost:58491/
-      fsApiUrl: http://192.168.100.221:39901/api/
+      asApiUrl: http://192.168.50.151:30000/
+      asPushUrl: http://192.168.50.151:30000/push/client
+      idSvrUrl: http://192.168.50.151:30000/
+      fsApiUrl: http://192.168.50.151:30000/api/
       hsApiUrl: http://fbhsd.fbox360.net/api/
-    
-    
+
+networks:
+  default:
+    external: true
+    name: cluster

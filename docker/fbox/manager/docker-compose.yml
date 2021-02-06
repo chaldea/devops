@@ -1,0 +1,32 @@
+version: '3.5'
+
+services:
+  manager:
+    container_name: manager
+    image: docker.flexem.com/flexem-fbox/fbox.manager:1.80.0.140-185d1f
+    ports: 
+     - "39901:39901"
+    restart: always
+    volumes:
+        - /opt/fbox/commsvr/LocalDb:/app/LocalDb
+    environment:
+      CorsOrigins__0: http://localhost:39801
+      CorsOrigins__1: http://192.168.50.151:39801
+      ConnectionStrings__As: "User ID=postgres;Password=postgres;Host=postgres;Port=5432;Database=fbas;Pooling=true;"
+      ConnectionStrings__Cs: "User ID=postgres;Password=postgres;Host=postgres;Port=5432;Database=fbcs;Pooling=true;"
+      AppSettings__ServerSetting__BaseUrl: http://192.168.50.151:30000
+      AppSettings__ServerSetting__CommServerId: 1
+      AppSettings__ServerSetting__CommServerKey: b9a03779e3954d2b973128b12a2a076d
+      AppSettings__PmsSetting__IdServerUrl_Mfg: https://idtest.fbox360.net/core/
+      AppSettings__PmsSetting__MfgServerUrl: https://mfgtest.flexem.net/api/as/
+      Redis__EndPoints: redis:6379
+      Redis__Database: 2
+      KafkaSetting__DefaultSettings__GroupId: fbox-comm.server
+      KafkaSetting__DefaultSettings__BootstrapServers: kafka:9092
+      KafkaSetting__DefaultSettings__TopicPrefix: fboxlocal.
+      FileService__FileManagerServiceUrl: http://192.168.50.151:30007
+
+networks:
+  default:
+    external: true
+    name: cluster

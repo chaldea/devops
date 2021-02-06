@@ -2,7 +2,7 @@ version: '3.5'
 services:
   connector:
     container_name: connector
-    image: docker.flexem.com/flexem-fbox/fbox.connector:1.3.1.5671-9ef3af
+    image: docker.flexem.com/flexem-fbox/fbox.connector:1.3.3.26-86ea59
     restart: always
     volumes:
      - /opt/fbox/conn/commands.json:/app/commands.json

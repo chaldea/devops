@@ -1,6 +1,8 @@
-version: "3"
+version: "3.5"
+
 services: 
  mssql:
+  container_name: mssql
   image: mcr.microsoft.com/mssql/server:2017-latest
   restart: always
   environment:
@@ -9,7 +11,9 @@ services:
   ports:
     - "1433:1433"
   volumes:
-    - mssql_data:/var/opt/mssql/data
+    - /opt/mssql/data:/var/opt/mssql/data
 
-volumes: 
-  mssql_data:
+networks:
+  default:
+    external: true
+    name: cluster

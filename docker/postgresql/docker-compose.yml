@@ -3,6 +3,7 @@ services:
   postgres:
     container_name: postgres
     image: postgres
+    user: postgres
     restart: always
     ports: 
       - 5432:5432
@@ -22,7 +23,7 @@ services:
       - /opt/postgresql/admin/conf:/root/.pgadmin
       - /opt/postgresql/admin/data:/var/lib/pgadmin/storage
     ports:
-      - 8081:80
+      - 8082:80
 
 networks:
   default:

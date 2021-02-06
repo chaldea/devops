@@ -1,0 +1,40 @@
+version: '3.5'
+
+services:
+  recharge:
+    container_name: recharge
+    image: docker.flexem.com/flexem-fbox/recharge:1.0.0.60-58f276
+    restart: always
+    ports:
+      - "9003:9003"
+    # volumes:
+    #   - /opt/recharge/certs:/app/certs
+    environment:
+        ConnectionStrings__Recharge: server=postgres;port=5432;user id=postgres;password=postgres;database=recharge
+        AuthServer__Authority: http://192.168.50.151:58491/core
+        AuthServer__ClientId: platform
+        AuthServer__ClientSecret: platform
+        Kafka__BootstrapServers: kafka:9092
+        Kafka__TopicPrefix: fboxlocal.
+        ProductManager__Url: http://api.ordertest.flexem.net
+        ProductManager__Token: xgT9KRT4G46gCB4DGpz8p6CywToOLX9S
+        ProductManager__SeriesId: "2647"
+        ProductManager__SubSeries__cmcc: "129"
+        ProductManager__SubSeries__unicom: "131"
+        ProductManager__SubSeries__chinanet: "130"
+        SimCard__Simboss__AppId: "102420129030"
+        SimCard__Simboss__AppSecret: "40e8203f09122a4f76401e26b4e27ee0"
+        SimCard__Flexem__Url: http://simmanager:9004 
+        Payment__TimeoutExpress: "15"
+        Payment__Alipay__ServerUrl: https://openapi.alipaydev.com/gateway.do
+        Payment__Alipay__AppId: "2016101700705184"
+        Payment__Alipay__CallbackUrl: https://openapi.flexem.net/recharge/payment/alipaycallback
+        Payment__Alipay__NotifyUrl: https://openapi.flexem.net/recharge/payment/alipaynotify
+        Invoice__Nuonuo__ServerUrl: https://nnfp.jss.com.cn
+        Invoice__Nuonuo__DesKey: LmMGStGtOpF4xNyvYt54EQ==
+        Invoice__Nuonuo__Identity: "97CF99A25E29CD9EC963AD8EF3DA34E26A1026CAA4E98EA2"
+
+networks:
+  default:
+    external: true
+    name: cluster

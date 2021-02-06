@@ -82,5 +82,5 @@ dumpe2fs -h /dev/sdb1 | grep options
 显示文件大小
 ls -l --block-size=M
 
-
+netstat -anop | grep 37964
 service haproxy reload

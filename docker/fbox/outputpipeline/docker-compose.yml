@@ -1,17 +1,15 @@
 version: '3.5'
 
 services:
-  fboxoutpipeline_onoff:
-    image: docker.flexem.com/flexem-fbox/fbox.outputpipeline:1.0.0.5506-c0c300
+  outputpipeline:
+    container_name: outputpipeline
+    image: docker.flexem.com/flexem-fbox/fbox.outputpipeline:1.0.0.63-5bf745
     restart: always
-    network_mode: bridge
     ports:
-     - "9501:80"
-    extra_hosts: 
-      - "localhost:192.168.50.151"
+     - "30181:30181"
+     - "37921:37921"
     volumes:
       - /opt/fbox/fboxoutpipe/data/db:/db/
-      - /opt/fbox/fboxoutpipe/data/log:/log/
     environment:
       SubscriptionManager__MaxDataSourceTopicBufferQueueSize: "10000"
       RocksDb__DataDir: /db/default
@@ -22,7 +20,7 @@ services:
       RocksDb__PerColumnFamilySettings__MinWriteBufferNumberToMerge: 1
       RocksDb__PerColumnFamilySettings__MaxBytesForLevelBase: 134217728
       RocksDb__PerColumnFamilySettings__OptimizeForPointLookupBlockCacheSizeMb: 24
-      SubscriptionManager__FBoxKafka__BootstrapServers: localhost:9092
+      SubscriptionManager__FBoxKafka__BootstrapServers: kafka:9092
       SubscriptionManager__FBoxKafka__TopicPrefix: fboxlocal.
       SubscriptionManager__FBoxKafka__GroupId: fbox-ops
       SubscriptionManager__DmonDataOutputHubPrefix: fbox.dmon.data.
@@ -32,51 +30,56 @@ services:
       # SubscriptionManager__Roles: ProcessSubscriptions,ProcessTerminalInput,PublishDmonOnOffs,DistributeDmonData,DistributeAlarmData,DistributeHdataData,DistributeDeviceStateLegacy
       SubscriptionManager__OutputTopics__0__Regex: ^fbox\\.dmon\\.data\\..+
       SubscriptionManager__OutputTopics__0__Topic: $$0
-      SubscriptionManager__OutputTopics__0__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__0__ProducerSettings__BootstrapServers: kafka:9092
       SubscriptionManager__OutputTopics__0__ProducerSettings__TopicPrefix: fboxlocal.
       SubscriptionManager__OutputTopics__0__ProducerSettings__EnableAsyncFlush: "true"
       SubscriptionManager__OutputTopics__1__Regex: ^fbox\\.alarm\\.data\\..+
       SubscriptionManager__OutputTopics__1__Topic: $$0
-      SubscriptionManager__OutputTopics__1__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__1__ProducerSettings__BootstrapServers: kafka:9092
       SubscriptionManager__OutputTopics__1__ProducerSettings__TopicPrefix: fboxlocal.
       SubscriptionManager__OutputTopics__1__ProducerSettings__EnableAsyncFlush: "true"
       SubscriptionManager__OutputTopics__2__Regex: ^fbox\\.hdata\\.data\\..+
       SubscriptionManager__OutputTopics__2__Topic: $$0
-      SubscriptionManager__OutputTopics__2__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__2__ProducerSettings__BootstrapServers: kafka:9092
       SubscriptionManager__OutputTopics__2__ProducerSettings__TopicPrefix: fboxlocal.
       SubscriptionManager__OutputTopics__2__ProducerSettings__EnableAsyncFlush: "true"
       SubscriptionManager__OutputTopics__3__Regex: ^fbox\\.device\\.state\\.legacy\\..+
       SubscriptionManager__OutputTopics__3__Topic: $$0
-      SubscriptionManager__OutputTopics__3__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__3__ProducerSettings__BootstrapServers: kafka:9092
       SubscriptionManager__OutputTopics__3__ProducerSettings__TopicPrefix: fboxlocal.
       SubscriptionManager__OutputTopics__3__ProducerSettings__EnableAsyncFlush: "true"
       SubscriptionManager__OutputTopics__3__ProducerSettings__MessageMaxBytes: "2000000"
       SubscriptionManager__OutputTopics__4__Regex: ^fbox\\.dmon\\.onoff\\..+
       SubscriptionManager__OutputTopics__4__Topic: $$0
-      SubscriptionManager__OutputTopics__4__ProducerSettings__BootstrapServers: localhost:9092
+      SubscriptionManager__OutputTopics__4__ProducerSettings__BootstrapServers: kafka:9092
       SubscriptionManager__OutputTopics__4__ProducerSettings__TopicPrefix: fboxlocal.
       SubscriptionManager__OutputTopics__4__ProducerSettings__EnableAsyncFlush: "true"
       SubscriptionManager__OutputTopics__4__ProducerSettings__DefaultPartition: 0
-      Kafka__DefaultSettings__BootstrapServers: localhost:9092
+      Kafka__DefaultSettings__BootstrapServers: kafka:9092
       Kafka__DefaultSettings__TopicPrefix: fboxlocal.
       Kafka__DefaultSettings__GroupId: fbox-outputpipeline
       Kafka__ProducerSettings__0__Match: ^fbox\\.dmon\\.data\\..+
       Kafka__ProducerSettings__0__Topic: $$0
-      Kafka__ProducerSettings__0__BootstrapServers: localhost:9092
+      Kafka__ProducerSettings__0__BootstrapServers: kafka:9092
       Kafka__ProducerSettings__0__TopicPrefix: fboxlocal.
       Kafka__ProducerSettings__0__EnableAsyncFlush: "true"
       Kafka__ProducerSettings__1__Match: ^fbox\\.alarm\\.data\\..+
       Kafka__ProducerSettings__1__Topic: $$0
-      Kafka__ProducerSettings__1__BootstrapServers: localhost:9092
+      Kafka__ProducerSettings__1__BootstrapServers: kafka:9092
       Kafka__ProducerSettings__1__TopicPrefix: fboxlocal.
       Kafka__ProducerSettings__1__EnableAsyncFlush: "true"
       Kafka__ProducerSettings__2__Match: ^fbox\\.hdata\\.data\\..+
       Kafka__ProducerSettings__2__Topic: $$0
-      Kafka__ProducerSettings__2__BootstrapServers: localhost:9092
+      Kafka__ProducerSettings__2__BootstrapServers: kafka:9092
       Kafka__ProducerSettings__2__TopicPrefix: fboxlocal.
       Kafka__ProducerSettings__2__EnableAsyncFlush: "true"
       Kafka__ProducerSettings__3__Match: ^fbox\\.device\\.state\\.legacy\\..+
       Kafka__ProducerSettings__3__Topic: $$0
-      Kafka__ProducerSettings__3__BootstrapServers: localhost:9092
+      Kafka__ProducerSettings__3__BootstrapServers: kafka:9092
       Kafka__ProducerSettings__3__TopicPrefix: fboxlocal.
       Kafka__ProducerSettings__3__EnableAsyncFlush: "true" 
+
+networks:
+  default:
+    external: true
+    name: cluster

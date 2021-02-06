@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: firmware-manager
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: app.fbox360.cn
+    http:
+      paths:
+      - path: /api/firmware
+        backend:
+          serviceName: firmware-manager
+          servicePort: http
