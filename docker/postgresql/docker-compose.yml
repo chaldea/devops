@@ -8,7 +8,7 @@ services:
     ports: 
       - 5432:5432
     volumes:
-     - /opt/postgresql/data:/var/lib/postgresql/data
+      - /opt/docker/postgresql/data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres
 
@@ -19,11 +19,14 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@root.com
       PGADMIN_DEFAULT_PASSWORD: 123456
-    volumes:
-      - /opt/postgresql/admin/conf:/root/.pgadmin
-      - /opt/postgresql/admin/data:/var/lib/pgadmin/storage
+    # volumes:
+      # - /opt/docker/postgresql/admin/conf:/root/.pgadmin
+      # - /opt/docker/postgresql/admin/data:/var/lib/pgadmin/storage
     ports:
       - 8082:80
+
+# volumes:
+#   data:
 
 networks:
   default:

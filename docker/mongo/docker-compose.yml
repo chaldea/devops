@@ -11,7 +11,7 @@ services:
       - 27019:27019
       - 28017:28017
     volumes: 
-      - /opt/mongo/data:/data/db
+      - /opt/docker/mongo/data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 1qaz!QAZ
