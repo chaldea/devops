@@ -79,6 +79,8 @@ ACL权限控制
 查看是否开启ACL控制
 dumpe2fs -h /dev/sdb1 | grep options
 
+显示文件大小
 ls -l --block-size=M
 
 netstat -anop | grep 37964
+service haproxy reload

@@ -1,0 +1,12 @@
+---
+    env:
+      LDAP_ORGANISATION: "Chaldea Inc."
+      LDAP_DOMAIN: "chaldea.cn"
+    persistence:
+      enabled: true
+      storageClass: local-path
+      size: 8Gi
+    service:
+      type: NodePort
+    nodeSelector:
+      storage: database
