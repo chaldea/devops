@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: npc
+  labels:
+    app.kubernetes.io/name: npc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: npc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: npc
+    spec:
+      containers:
+        - name: npc
+          image: chaldea/npc:0.26.5
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NPC_SERVER
+              value: localhost:2027
+            - name: NPC_VKEY
+              value: 123456
+            - name: NPC_TYPE
+              value: tcp

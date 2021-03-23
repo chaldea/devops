@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+  showdoc:
+    container_name: showdoc
+    image: star7th/showdoc
+    restart: always
+    ports:
+      - '4999:80'
+    volumes:
+      - '/opt/showdoc/html:/var/www/html'
+
+networks:
+  default:
+    external: true
+    name: cluster

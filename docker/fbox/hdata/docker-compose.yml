@@ -1,0 +1,20 @@
+version: '3.5'
+
+services:
+  hdataserver:
+    container_name: hdataserver
+    image: docker.flexem.com/flexem-fbox/fbox.hdatasvr:1.0.0.46-5bf745
+    ports: 
+     - "26696:80"
+    restart: always
+    environment:
+      Cassandra__ConnectionString: Contact Points=192.168.50.77
+      Cassandra__Port: 22458
+      Authentication__Authority: http://192.168.50.151:58491/core
+      EphemeralUrl__ShortenedUrlPath: /hs/eph
+      Kestrel__Endpoints__Http__Url: http://*:80
+
+networks:
+  default:
+    external: true
+    name: cluster

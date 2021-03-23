@@ -1,0 +1,24 @@
+version: '3.5'
+services:
+  vbox:
+    container_name: vbox
+    image: docker.flexem.com/flexem-fbox/fbox.emu:test1602667999
+    ports:
+      - "39110:39110"
+    environment:
+      ConnectionStrings__As: "User ID=postgres;Password=NOco50qD1U;Host=192.168.50.77;Port=22298;Database=fbas_dev;Pooling=true;"
+      ConnectionStrings__Cs: "User ID=postgres;Password=NOco50qD1U;Host=192.168.50.77;Port=22298;Database=fbcs_dev;Pooling=true;"
+      FBoxService__AsUrl: "https://dev.fbox.flexem.net"
+      FBoxEmulatorDbGenerator__SnDbLikeExpression: "1000%"
+      FBoxEmulatorDbGenerator__MaxInstances: 10
+      # ConnectionStrings__As: "User ID=postgres;Password=postgres;Host=postgres;Port=5432;Database=fbas;Pooling=true;"
+      # ConnectionStrings__Cs: "User ID=postgres;Password=postgres;Host=postgres;Port=5432;Database=fbcs;Pooling=true;"
+      # FBoxService__AsUrl: "http://192.168.50.151:30005"
+      # FBoxEmulatorDbGenerator__SnDbLikeExpression: "1234%"
+      # FBoxEmulatorDbGenerator__MaxInstances: 10
+
+
+networks:
+  default:
+    external: true
+    name: cluster

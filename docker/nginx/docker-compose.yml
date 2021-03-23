@@ -1,0 +1,18 @@
+version: "3.5"
+services: 
+ nginx:
+  container_name: nginx
+  image: nginx
+  restart: always
+  ports:
+    - "433:433"
+    - "80:80"
+  volumes:
+    - /opt/nginx/log:/var/log/nginx
+    - /opt/nginx/html:/usr/share/nginx/html
+    - /opt/nginx/conf:/etc/nginx/conf.d
+
+networks:
+  default:
+    external: true
+    name: cluster

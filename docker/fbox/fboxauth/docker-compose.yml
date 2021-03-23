@@ -1,0 +1,24 @@
+version: '3.5'
+ 
+services:
+  deviceauth:
+    container_name: deviceauth
+    image: docker.flexem.com/flexem-fbox/fbox.deviceauth:1.1.0.31-f61125
+    ports: 
+     - "30005:80"
+    restart: always
+    environment:
+      AppSettings__SessionExpiryHours: 24
+      AppSettings__Kafka__Brokers: kafka:9092
+      AppSettings__Kafka__TopicPrefix: fboxlocal.
+      AppSettings__Redis__EndPoints: redis:6379
+      AppSettings__Redis__Database: 0
+      AppSettings__Discover: etcd
+      AppSettings__Etcd__Prefix: fboxlocal
+      AppSettings__Etcd__Connection: http://192.168.50.151
+      AppSettings__Etcd__Port: 2379
+
+networks:
+  default:
+    external: true
+    name: cluster

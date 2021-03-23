@@ -1,0 +1,21 @@
+version: '3.5'
+ 
+services:
+  filemanager:
+    container_name: filemanager
+    image: docker.flexem.com/flexem-fbox/fbox.filemanager:1.0.0.5042-2278fc
+    ports:
+     - "30007:80"
+    restart: always
+    environment:
+      ConnectionStrings__Connection: "User ID=postgres;Password=postgres;Host=postgres;Port=5432;Database=fbfile;Pooling=true;"
+      AppSettings__IdSvrAuthority: http://192.168.50.151:58491/core/
+      AppSettings__Minio__Endpoint: minio:9000
+      AppSettings__Minio__AccessKey: admin
+      AppSettings__Minio__SecretKey: 426gcHKN1B
+      AppSettings__Minio__Secure: "false"
+
+networks:
+  default:
+    external: true
+    name: cluster

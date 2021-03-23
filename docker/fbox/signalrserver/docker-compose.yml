@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  oldsignalrserver:
+    container_name: oldsignalrserver
+    image: docker.flexem.com/flexem-fbox/fbox.oldsignalr:1.0.0.12-e0cb02
+    restart: always
+    ports:
+     - "5001:80"
+    environment:
+      AllowOrigins__0: http://localhost:39801
+      AppSettings__ServerID: 0
+      AppSettings__IdServerUrl: http://192.168.50.151:58491/core
+      AppSettings__DisableSignalRServerSentEvents: "false"
+      AppSettings__DisableSignalRWebSockets: "false"
+      AppSettings__SignalRKeepAliveTime: 40
+      AppSettings__SignalRDisconnectTimeout: 120
+      AppSettings__Kafka__Brokers: kafka:9092
+      AppSettings__Kafka__TopicPrefix: fboxlocal.
+      AppSettings__Kafka__GroupId: fbox.signalr.push
+      AppSettings__Kafka__FboxSubTopic: fbox.data.sub
+      AppSettings__Redis__EndPoints: redis:6379
+      AppSettings__Redis__Database: 0
+
+networks:
+  default:
+    external: true
+    name: cluster

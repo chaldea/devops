@@ -1,0 +1,21 @@
+version: '3.5'
+ 
+services:
+  syncsvr:
+    container_name: syncsvr
+    image: docker.flexem.com/flexem-fbox/fbox.syncservice:1.0.3.44-c01231
+    ports:
+     - "20021:20021"
+    volumes:
+     - /opt/loki/log:/app/logs
+    restart: always
+    environment:
+      Kafka__DefaultSettings__BootstrapServers: kafka:9092
+      Kafka__DefaultSettings__TopicPrefix: fboxlocal.
+      Redis__EndPoints: redis:6379
+      Redis__Database: 1
+
+networks:
+  default:
+    external: true
+    name: cluster

@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: permission
+  labels:
+    app.kubernetes.io/name: permission
+spec:
+  type: NodePort
+  ports:
+    - port: 9001
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: permission
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: permission
+  labels:
+    app.kubernetes.io/name: permission
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: permission
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: permission
+    spec:
+      containers:
+        - name: permission
+          image: docker.flexem.com/flexem/permission:1.0.1.5259-eed57b
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9001
+              protocol: TCP
+          env:
+            - name: ConnectionStrings__Permission
+              value: "server=postgresql-postgresql-headless.postgresql;user id=postgres;password=NOco50qD1U;database=fxid_dev;"
+            - name: AuthServer__Authority
+              value: "http://ids.dev.fbox.flexem.net/core"

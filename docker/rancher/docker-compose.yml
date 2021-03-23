@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  rancher:
+    container_name: rancher
+    image: rancher/rancher:latest
+    restart: always
+    volumes:
+     - /opt/rancher:/var/lib/rancher
+    ports:
+     - "80:80"
+     - "443:443"
+
+networks:
+  default:
+    external: true
+    name: cluster

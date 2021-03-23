@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    network_mode: bridge
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+    entrypoint: "tail -f /dev/null"

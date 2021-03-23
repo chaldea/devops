@@ -1,0 +1,21 @@
+---
+    service: 
+      type: NodePort
+      port: 22300
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+        - host: note.chaldea.cn
+          paths: 
+            - "/"
+      tls:
+        - secretName: wildcard-chaldea-cn-tls
+          hosts:
+            - '*.chaldea.cn'
+    env:
+      APP_BASE_URL: https://note.chaldea.cn
+      POSTGRES_HOST: postgresql.chaldea-database
+      POSTGRES_PASSWORD: 7FELAYsboZ

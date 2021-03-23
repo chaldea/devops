@@ -1,0 +1,9 @@
+---
+    service: 
+      type: NodePort
+    persistentVolume:
+      size: 2Gi
+      storageClass: longhorn
+    env:
+      email: dev@chaldea.cn
+      password: 1qaz!QAZ

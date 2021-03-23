@@ -1,0 +1,17 @@
+version: "3.5"
+
+services:
+  permission:
+    container_name: permission
+    image: docker.flexem.com/flexem/permission:1.0.0.27-d802f8
+    restart: always
+    ports:
+      - "9001:9001"
+    environment:
+      ConnectionStrings__Permission: 'server=postgres;port=5432;user id=postgres;password=postgres;database=fxid'
+      AuthServer__Authority: 'http://identity/core'
+
+networks:
+  default:
+    external: true
+    name: cluster

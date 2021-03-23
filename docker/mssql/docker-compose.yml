@@ -1,0 +1,19 @@
+version: "3.5"
+
+services: 
+ mssql:
+  container_name: mssql
+  image: docker.flexem.com/library/mssql:2017-latest
+  restart: always
+  environment:
+    ACCEPT_EULA: "Y"
+    SA_PASSWORD: "Bu32Xdgu"
+  ports:
+    - "1433:1433"
+  volumes:
+    - /opt/docker/mssql/data:/var/opt/mssql/data
+
+networks:
+  default:
+    external: true
+    name: cluster

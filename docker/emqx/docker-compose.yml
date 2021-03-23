@@ -1,0 +1,21 @@
+version: '3.5'
+services:
+  emqx:
+    container_name: emqx
+    image: emqx/emqx:v3.2.7
+    restart: always
+    ports:
+      - 1883:1883
+      - 8083:8083
+      - 8084:8084
+      - 8883:8883
+      - 18083:18083
+    volumes:
+      - /opt/emqx/data:/opt/emqx/data
+      - /opt/emqx/log:/opt/emqx/log
+      - /opt/emqx/etc:/opt/emqx/etc
+
+networks:
+  default:
+    external: true
+    name: cluster

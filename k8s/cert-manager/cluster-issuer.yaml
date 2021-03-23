@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: dev@chaldea.cn
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - selector: 
+        dnsNames:
+        - '*.chaldea.cn'
+      dns01:
+        webhook:
+          config:
+            accessKeyId: "aliyun access key id"
+            accessKeySecretRef:
+              key: accessKeySecret
+              name: alidns-credentials
+            regionId: "cn-shanghai"
+            ttl: 600
+          groupName: certmanager.webhook.alidns
+          solverName: alidns

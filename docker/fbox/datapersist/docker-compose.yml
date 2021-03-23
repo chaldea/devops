@@ -1,0 +1,33 @@
+version: '3.5'
+ 
+services:
+  datapersist:
+    container_name: datapersist
+    image: docker.flexem.com/flexem-fbox/fbox.persistsvr:1.0.1.18-6a619d
+    ports: 
+     - 3795
+    restart: always 
+    environment:
+      Kafka__DefaultSettings__GroupId: fboxpersistsvr
+      Kafka__DefaultSettings__BootstrapServers: kafka:9092
+      Kafka__DefaultSettings__TopicPrefix: fboxlocal.
+      Kafka__ConsumerSettings__2__StreamPullListModeBufferSize: "200"
+      Kafka__ConsumerSettings__1__StreamPullListModeBufferSize: "100"
+      Kafka__ConsumerSettings__0__StreamPullListModeBufferSize: "50"
+      Cassandra__ConnectionString: Contact Points=192.168.50.77
+      Cassandra__Port: 22458
+      Cassandra__DefaultConsistencyLevel: One
+      AppSettings__MinutelyDataPersistingParallelism: "1"
+      AppSettings__HdataWriteMode: MergedItemsGroupByDayAndChannel
+      AppSettings__HdataDataItemWriteConcurrency: "1"
+      AppSettings__HdataDataChannelWriteConcurrency: "1"
+      AppSettings__DisableBatchInsert: "true"
+      AppSettings__DataAggregatorParallism: "1"
+      AppSettings__CassandraWriteConsistency: Any
+      AppSettings__CassandraMaxBatchSize: "200"
+      AppSettings__BatchWriteConcurrency: "1"
+
+networks:
+  default:
+    external: true
+    name: cluster

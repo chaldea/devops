@@ -1,0 +1,35 @@
+version: '3.5'
+ 
+services:
+  pms:
+    container_name: pms
+    image: pms:test
+    restart: always
+    ports:
+     - "42742:42742"
+    environment:
+      ConnectionStrings__Default: "server=mssql;database=pms;uid=sa;pwd=Bu32Xdgu;"
+      App__ServerRootAddress: "http://192.168.50.151:42742/"
+      App__ClientRootAddress: "http://192.168.50.151:41200/"
+      App__CorsOrigins: "http://192.168.50.151:41200,http://192.168.50.151:49152"
+      Rdms__ProductionServiceAddress: "https://mfgtest.fbox360.net"
+      Rdms__FBoxLoginServiceAddress: "http://dev.fbox.flexem.net"
+      Rdms__FBoxServerMinVersion: "1.9.1"
+      MinioSetting__EndPoint: "192.168.50.151:9000"
+      MinioSetting__AccessKey: "admin"
+      MinioSetting__SecretKey: "426gcHKN1B"
+      MinioSetting__Secure: "false"
+  pms-app:
+    container_name: pms-app
+    image: pms-app:test
+    restart: always
+    ports:
+     - "41200:80"
+    environment: 
+      PMS_REMOTESERVICEBASEURL: "http://192.168.50.151:42742"
+      PMS_APPBASEURL: "http://192.168.50.151:41200"
+
+networks:
+  default:
+    external: true
+    name: cluster

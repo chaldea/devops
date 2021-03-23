@@ -1,0 +1,16 @@
+version: "3.5"
+services: 
+ npc:
+  container_name: npc
+  image: chaldea/npc
+  restart: always
+  network_mode: host
+  environment:
+    SERVER_ADDR: localhost:2027
+    CONN_TYPE: tcp
+    VKEY: 123456
+
+# networks:
+#  default:
+#    external: true
+#    name: cluster

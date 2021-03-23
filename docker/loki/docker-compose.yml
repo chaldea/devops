@@ -1,0 +1,24 @@
+version: "3.5"
+
+services:
+  loki:
+    image: grafana/loki:1.6.0
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+    image: grafana/promtail:1.6.0
+    volumes:
+      - /opt/loki/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+
+networks:
+  default:
+    external: true
+    name: cluster

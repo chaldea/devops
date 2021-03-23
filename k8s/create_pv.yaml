@@ -1,0 +1,21 @@
+{
+  "kind": "PersistentVolume",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "pv-fboxappsvr01"
+  },
+  "spec": {
+    "capacity": {
+      "storage": "1Gi"
+    },
+    "hostPath": {
+      "path": "/opt/data/fboxappsvr",
+      "type": ""
+    },
+    "accessModes": [
+      "ReadWriteOnce"
+    ],
+    "persistentVolumeReclaimPolicy": "Recycle",
+    "volumeMode": "Filesystem"
+  }
+}

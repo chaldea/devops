@@ -1,0 +1,138 @@
+---
+# Source: recharge/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: recharge
+  labels:
+    helm.sh/chart: recharge-0.1.0
+    app.kubernetes.io/name: recharge
+    app.kubernetes.io/instance: recharge
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: recharge
+    app.kubernetes.io/instance: recharge
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: recharge
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: app.fbox360.cn
+    http:
+      paths:
+      - path: /api/recharge
+        backend:
+          serviceName: recharge
+          servicePort: http
+---
+# Source: recharge/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recharge
+  labels:
+    helm.sh/chart: recharge-0.1.0
+    app.kubernetes.io/name: recharge
+    app.kubernetes.io/instance: recharge
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: recharge
+      app.kubernetes.io/instance: recharge
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: recharge
+        app.kubernetes.io/instance: recharge
+    spec:
+      containers:
+        - name: recharge
+          image: docker.flexem.com/flexem-fbox/recharge:1.0.0.13-f6f11c
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9003
+              protocol: TCP
+          env:
+            - name: AuthServer__Authority
+              value: http://account.fbox360.cn/core
+            - name: AuthServer__ClientId
+              value: platform
+            - name: AuthServer__ClientSecret
+              value: platform
+            - name: Invoice__Nuonuo__DesKey
+              value: LmMGStGtOpF4xNyvYt54EQ==
+            - name: Invoice__Nuonuo__Identity
+              value: 97CF99A25E29CD9EC963AD8EF3DA34E26A1026CAA4E98EA2
+            - name: Invoice__Nuonuo__ServerUrl
+              value: https://nnfp.jss.com.cn
+            - name: Kafka__BootstrapServers
+              value: 172.18.138.232:9092
+            - name: Kafka__TopicPrefix
+              value: fboxstage.
+            - name: Payment__Alipay__AppId
+              value: "2021001162638154"
+            - name: Payment__Alipay__CallbackUrl
+              value: http://app.fbox360.cn/recharge/payment/alipaycallback
+            - name: Payment__Alipay__NotifyUrl
+              value: http://app.fbox360.cn/recharge/payment/alipaynotify
+            - name: Payment__Alipay__ServerUrl
+              value: https://openapi.alipay.com/gateway.do
+            - name: ProductManager__SeriesId
+              value: "2647"
+            - name: ProductManager__SubSeries__chinanet
+              value: "130"
+            - name: ProductManager__SubSeries__cmcc
+              value: "129"
+            - name: ProductManager__SubSeries__unicom
+              value: "131"
+            - name: ProductManager__Token
+              value: xgT9KRT4G46gCB4DGpz8p6CywToOLX9S
+            - name: ProductManager__Url
+              value: http://api.ordertest.flexem.net
+            - name: SimCardManager__AppId
+              value: "102420129030"
+            - name: SimCardManager__AppSecret
+              value: 40e8203f09122a4f76401e26b4e27ee0
+            - name: ConnectionStrings__Recharge
+              valueFrom:
+                secretKeyRef:
+                  key: RdsConnectString
+                  name: recharge
+                  optional: false
+          volumeMounts:
+            - mountPath: /app/certs
+              name: certs
+          resources:
+            {}
+      volumes:
+        - name: certs
+          secret:
+            defaultMode: 256
+            items:
+            - key: alipayCertPublicKey.crt
+              path: alipayCertPublicKey.crt
+            - key: alipayRootCert.crt
+              path: alipayRootCert.crt
+            - key: appCertPublicKey.crt
+              path: appCertPublicKey.crt
+            - key: appPrivateKey.txt
+              path: appPrivateKey.txt
+            optional: false
+            secretName: recharge
+
