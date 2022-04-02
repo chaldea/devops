@@ -98,3 +98,29 @@ hostnamectl set-hostname k8s-node
 uuidgen
 vi /etc/sysconfig/network-scripts/ifcfg-ens3
 systemctl restart network
+
+克隆虚拟机实例
+```
+# 克隆虚拟机
+# o: original 模板
+# n: new name 新虚拟机名称
+# f: new disk file 新虚拟机磁盘(克隆时自动创建)
+virt-clone -o template -n new_vm -f /data/kvm/images/new_vm.qcow2
+```
+
+```虚拟机操作
+# 查看所有虚拟机
+virsh list --all
+
+# 强制关闭虚拟机
+virsh destroy chaldea-dev
+
+# 删除虚拟机
+virsh undefine chaldea-dev
+
+# 关闭虚拟机
+virsh shutdown chaldea-dev
+
+# 启动虚拟机
+virsh start chaldea-dev
+```
