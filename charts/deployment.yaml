@@ -1,0 +1,128 @@
+---
+# Source: nexus/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nexus
+  labels:
+    helm.sh/chart: nexus-3.22.0
+    app.kubernetes.io/name: nexus
+    app.kubernetes.io/instance: nexus
+    app.kubernetes.io/version: "3.22.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: nexus/templates/pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nexus
+  labels:
+    app: nexus
+    chart: nexus-3.22.0
+    release: nexus
+    heritage: Helm
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "300Gi"
+  storageClassName: "local-path"
+---
+# Source: nexus/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus
+  labels:
+    helm.sh/chart: nexus-3.22.0
+    app.kubernetes.io/name: nexus
+    app.kubernetes.io/instance: nexus
+    app.kubernetes.io/version: "3.22.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: nexus
+    app.kubernetes.io/instance: nexus
+---
+# Source: nexus/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus
+  labels:
+    helm.sh/chart: nexus-3.22.0
+    app.kubernetes.io/name: nexus
+    app.kubernetes.io/instance: nexus
+    app.kubernetes.io/version: "3.22.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/instance: nexus
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nexus
+        app.kubernetes.io/instance: nexus
+    spec:
+      serviceAccountName: nexus
+      securityContext:
+        {}
+      containers:
+        - name: nexus
+          securityContext:
+            {}
+          image: "sonatype/nexus3:3.22.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+          resources:
+            {}
+          volumeMounts:
+            - mountPath: /nexus-data
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim: 
+            claimName: nexus
+      nodeSelector:
+        storage: data1
+---
+# Source: nexus/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: nexus
+  labels:
+    helm.sh/chart: nexus-3.22.0
+    app.kubernetes.io/name: nexus
+    app.kubernetes.io/instance: nexus
+    app.kubernetes.io/version: "3.22.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: traefik
+spec:
+  tls:
+    - hosts:
+        - "*.chaldea.cn"
+      secretName: wildcard-chaldea-cn-tls
+  rules:
+    - host: "mirror.chaldea.cn"
+      http:
+        paths:
+          - path: 
+            backend:
+              serviceName: nexus
+              servicePort: 8081

@@ -96,7 +96,7 @@ spec:
                   - rancher
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        storage: database
+        storage: data1
       containers:
       - image: rancher/rancher:v2.3.5
         imagePullPolicy: IfNotPresent

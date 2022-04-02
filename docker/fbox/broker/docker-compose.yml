@@ -1,0 +1,48 @@
+version: '3.5'
+
+services:
+  emqx:
+    image: docker.flexem.com/library/emqx:4.3.6.1
+    container_name: emqx
+    restart: always
+    ports:
+      - 1883:1883
+      - 8083:8083
+      - 8883:8883
+      - 8084:8084
+      - 18083:18083
+    environment:
+      HTTPAUTH: http://192.168.100.19:44379/api/broker/auth
+      HTTPACL: http://192.168.100.19:44379/api/broker/auth/acl
+      JWTAUTHJWKS: http://192.168.100.19:44379/.well-known/openid-configuration/jwks
+      DASHBOARDPASSWORD: 1qaz@WSX
+    volumes:
+      - emqx-data:/opt/emqx/data
+      - emqx-etc:/opt/emqx/etc
+      - ./emqx-log:/opt/emqx/log
+
+  # fbroker:
+  #   image: docker.flexem.com/flexem-platform/fbroker:1.0.0.71-02e90f
+  #   container_name: fbroker
+  #   restart: always
+  #   ports:
+  #     - 10180:80
+  #   environment:
+  #     AuthServer__Authority: http://fbroker
+  #     Mqtt__APIUrl: http://emqx:18083
+  #     Mqtt__WSURL: ws://emqx:8083/mqtt
+  #     Mqtt__Address: emqx
+  #     Mqtt__Port: 1883
+  #   volumes:
+  #     - ./fbroker-data:/app/data
+
+volumes:
+  emqx-data:
+    name: emqx-data
+  emqx-etc:
+    name: emqx-etc
+
+networks:
+ default:
+   external: true
+   name: cluster

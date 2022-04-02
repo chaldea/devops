@@ -11,9 +11,5 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    - port: 8083
-      targetPort: docker
-      protocol: TCP
-      name: docker
   selector:
     {{- include "nexus.selectorLabels" . | nindent 4 }}

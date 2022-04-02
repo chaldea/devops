@@ -1,0 +1,15 @@
+version: "3.5"
+
+services:
+  ppocr:
+    container_name: ppocr
+    image: hub.baidubce.com/paddlepaddle/paddle:latest-gpu-cuda9.0-cudnn7-dev
+    entrypoint: tail -f /dev/null
+    restart: always
+    volumes:
+      - /opt/paddle:/paddle
+
+networks:
+  default:
+    external: true
+    name: cluster

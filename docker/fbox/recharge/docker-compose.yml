@@ -3,7 +3,7 @@ version: '3.5'
 services:
   recharge:
     container_name: recharge
-    image: docker.flexem.com/flexem-fbox/recharge:1.0.0.60-58f276
+    image: test:123
     restart: always
     ports:
       - "9003:9003"

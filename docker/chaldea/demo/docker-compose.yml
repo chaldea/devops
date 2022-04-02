@@ -1,0 +1,17 @@
+version: "3.5"
+
+services:
+  demo:
+    container_name: demo
+    image: chaldea/fate-ci-demo:1.0.2.9
+    restart: always
+    ports:
+      - "9999:80"
+    environment:
+      ConnectionStrings__Default: server=192.168.50.151;port=5432;user id=postgres;password=postgres;database=hello
+    # entrypoint: "sleep 10000000"
+
+networks:
+  default:
+    external: true
+    name: cluster

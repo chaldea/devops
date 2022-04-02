@@ -2,7 +2,8 @@ version: '3.5'
 services:
   emqx:
     container_name: emqx
-    image: emqx/emqx:v3.2.7
+    # image: emqx/emqx:4.3.6
+    image: emqx/emqx:4.3.10
     restart: always
     ports:
       - 1883:1883
@@ -11,9 +12,18 @@ services:
       - 8883:8883
       - 18083:18083
     volumes:
-      - /opt/emqx/data:/opt/emqx/data
-      - /opt/emqx/log:/opt/emqx/log
-      - /opt/emqx/etc:/opt/emqx/etc
+      - emqx_data:/opt/emqx/data
+      - emqx_etc:/opt/emqx/etc
+      - emqx_log:/opt/emqx/log
+    # volumes:
+    #   - /opt/emqxv4/data:/opt/emqx/data
+    #   - /opt/emqxv4/log:/opt/emqx/log
+    #   - /opt/emqxv4/etc:/opt/emqx/etc
+
+volumes: 
+  emqx_data:
+  emqx_etc:
+  emqx_log:
 
 networks:
   default:

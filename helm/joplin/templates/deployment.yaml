@@ -35,26 +35,16 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 80
               protocol: TCP
-          env:
-            - name: APP_BASE_URL
-              value: {{ .Values.env.APP_BASE_URL | quote }}
-            - name: DB_CLIENT
-              value: {{ .Values.env.DB_CLIENT | quote }}
-            - name: POSTGRES_HOST
-              value: {{ .Values.env.POSTGRES_HOST | quote }}
-            - name: POSTGRES_PORT
-              value: {{ .Values.env.POSTGRES_PORT | quote }}
-            - name: POSTGRES_DATABASE
-              value: {{ .Values.env.POSTGRES_DATABASE | quote }}
-            - name: POSTGRES_USER
-              value: {{ .Values.env.POSTGRES_USER | quote }}
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name:  {{ template "joplin.fullname" . }}
-                  key: POSTGRES_PASSWORD
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
