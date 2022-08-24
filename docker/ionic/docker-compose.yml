@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  ionic:
+    # build: 
+    #   context: .
+    #   args:
+    #     - HTTP_PROXY=http://192.168.100.19:7890
+    #     - HTTPS_PROXY=http://192.168.100.19:7890
+    image: chaldea/ionic:6.19.1
+    container_name: ionic
+    entrypoint: tail -f /dev/null
+    # volumes:
+    #   - /root/projects/chaldea/chaldea:/ionicapp
+
+networks:
+ default:
+   external: true
+   name: cluster

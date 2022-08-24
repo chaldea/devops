@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+  node:
+    build: .
+    image: chaldea/node:16.16.0-mc
+    container_name: node
+    entrypoint: tail -f /dev/null
+    # volumes:
+    #   - /root/projects/chaldea/dotnet:/projects
+
+networks:
+ default:
+   external: true
+   name: cluster

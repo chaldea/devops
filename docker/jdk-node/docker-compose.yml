@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  jdk-node:
+    build: .
+    image: chaldea/jdk-node:16
+    container_name: jdk-node
+    entrypoint: tail -f /dev/null
+
+networks:
+ default:
+   external: true
+   name: cluster
