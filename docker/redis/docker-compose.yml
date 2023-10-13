@@ -5,7 +5,9 @@ services:
     image: bitnami/redis:5.0
     restart: always
     environment:
-      - ALLOW_EMPTY_PASSWORD=yes
+      # For dev only
+      # - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PASSWORD=Ini5jORmWL
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:
       - '6379:6379'

@@ -2,7 +2,7 @@ version: '3.5'
 services:
   etcd:
     container_name: etcd
-    image: bitnami/etcd:3
+    image: bitnami/etcd:3.4
     restart: always
     ports:
       - 2379:2379
