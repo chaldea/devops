@@ -1,0 +1,20 @@
+version: "3.5"
+services:
+  rcon:
+    container_name: rcon
+    image: itzg/rcon
+    restart: always
+    ports:
+      - "4326:4326"
+      - "4327:4327"
+    environment:
+      RWA_USERNAME: admin
+      RWA_PASSWORD: MPx3AGXZ7Q
+      RWA_ADMIN: "TRUE"
+    volumes:
+      - /opt/rcon:/opt/rcon-web-admin/db
+
+networks:
+  default:
+    external: true
+    name: cluster

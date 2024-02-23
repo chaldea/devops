@@ -2,7 +2,7 @@ version: "3.5"
 services: 
  nginx:
   container_name: nginx
-  image: nginx
+  image: nginx:1.25.3
   restart: always
   ports:
     - "433:433"
@@ -11,6 +11,7 @@ services:
     - /opt/nginx/log:/var/log/nginx
     - /opt/nginx/html:/usr/share/nginx/html
     - /opt/nginx/conf:/etc/nginx/conf.d
+    - /opt/nginx/cert:/etc/letsencrypt
 
 networks:
   default:

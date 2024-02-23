@@ -1,0 +1,20 @@
+version: "3"
+services:
+  frpc1:
+    container_name: frpc1
+    image: snowdreamtech/frpc:0.53.2
+    restart: always
+    volumes:
+      - /opt/frp/frpc1.toml:/etc/frp/frpc.toml
+
+  frpc2:
+    container_name: frpc2
+    image: snowdreamtech/frpc:0.53.2
+    restart: always
+    volumes:
+      - /opt/frp/frpc2.toml:/etc/frp/frpc.toml
+
+networks:
+  default:
+    external: true
+    name: cluster

@@ -6,8 +6,9 @@ services:
     restart: always
     environment:
       # For dev only
-      # - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_PASSWORD=Ini5jORmWL
+      - ALLOW_EMPTY_PASSWORD=yes
+      # For product
+      # - REDIS_PASSWORD=Ini5jORmWL
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:
       - '6379:6379'

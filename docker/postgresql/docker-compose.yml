@@ -2,7 +2,7 @@ version: '3.5'
 services:
   postgres:
     container_name: postgres
-    image: postgres:12
+    image: postgres:16
     user: postgres
     restart: always
     ports: 
@@ -14,7 +14,7 @@ services:
 
   pgadmin4:
     container_name: pgadmin4
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:8.2
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@root.com

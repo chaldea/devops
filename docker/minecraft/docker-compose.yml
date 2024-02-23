@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    restart: unless-stopped
+    container_name: minecraft
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+    volumes:
+      - /opt/minecraft:/data
+
+networks:
+  default:
+    external: true
+    name: cluster
